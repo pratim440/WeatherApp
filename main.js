@@ -3,11 +3,14 @@ const api = {
   base: "https://api.openweathermap.org/data/2.5/",
 };
 
-$(".search-box").keydown(setQuery);
+$(".search-box").keypress(setQuery);
 function setQuery(evt) {
   if (evt.keyCode == 13) {
-    getResults(searchbox.value);
-    window.localStorage.setItem("city", JSON.stringify(searchbox.value));
+    getResults($(".search-box")[0].value);
+    window.localStorage.setItem(
+      "city",
+      JSON.stringify($(".search-box")[0].value)
+    );
   }
 }
 
@@ -18,7 +21,7 @@ function getResults(query) {
     })
     .then((data) => {
       displayResults(data);
-      searchbox.value = "";
+      $(".search-box")[0].value = "";
     });
 }
 window.localStorage.getItem("city")
